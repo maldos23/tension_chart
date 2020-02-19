@@ -1,0 +1,26 @@
+{
+  "name": "tensionchart",
+  "version": "1.0.0",
+  "description": "Graficador de tension",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "serve-handler": "^6.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maldos23/tension_chart.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maldos23/tension_chart/issues"
+  },
+  "homepage": "https://github.com/maldos23/tension_chart#readme"
+}
