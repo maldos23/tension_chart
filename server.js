@@ -3,7 +3,7 @@ const http = require('http');
 const path = require('path');
 const capitalFile = "/index.html";
 
-let PORT = 80;
+let PORT = 8080;
 
 const server = http.createServer((request, response) => {
 
