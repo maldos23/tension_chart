@@ -3,7 +3,11 @@ const http = require('http');
 const path = require('path');
 const capitalFile = "/index.html";
 
-let PORT = 8080;
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
+let PORT = process.env.PORT;
 
 const server = http.createServer((request, response) => {
 
