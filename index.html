@@ -1,0 +1,137 @@
+<html>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <body>
+        <!-- Resources -->
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script><script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- Chart code -->
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+              'use strict';
+              window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                  form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                  }, false);
+                });
+              }, false);
+            })();
+        </script>
+        <script>
+        var data = [];
+        var visits = 10;
+        
+        function insertArrayTension(){
+            data.push({index:Number(document.getElementById("valX").value), value:Number(document.getElementById("valY").value)});
+            setChart();
+        };
+        function setChart(){
+        am4core.ready(function() {
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+        var dataSource = new am4core.DataSource();
+        var chart = am4core.create("chartdiv", am4charts.XYChart);
+        chart.paddingRight = 20;
+        chart.data = data;
+        
+        chart.dataSource.reloadFrequency = 1000;
+        chart.dataSource.incremental = true;
+        chart.dataSource.updateCurrentData = true;
+        var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+        dateAxis.renderer.grid.template.location = 0;
+        dateAxis.minZoomCount = 5;
+
+
+        // this makes the data to be grouped
+        dateAxis.groupData = true;
+        dateAxis.groupCount = 500;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+        var series = chart.series.push(new am4charts.LineSeries());
+        series.dataFields.dateX = "index";
+        series.dataFields.valueY = "value";
+        series.tooltipText = "{valueY}";
+        series.tooltip.pointerOrientation = "vertical";
+        series.tooltip.background.fillOpacity = 0.5;
+
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.xAxis = dateAxis;
+
+        var scrollbarX = new am4core.Scrollbar();
+        scrollbarX.marginBottom = 20;
+        chart.scrollbarX = scrollbarX;
+
+        });
+        }
+        setChart();
+        </script>
+        <div class="container">
+        <br/>
+        <h4>Grafica Tension</h4>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Datos de grafico</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Ingrese datos de grafico</h6>
+                    <form class="needs-validation" novalidate onsubmit="return false">
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label for="valX">Eje X</label>
+                            <input id="valX" type="number" step="0.0001" class="form-control" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                              Ingresa valor en el ejeX
+                            </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label for="valY">Eje Y</label>
+                          <input id="valY" type="number" step="0.0001" class="form-control"  required>
+                          <div class="invalid-feedback">
+                              Ingresa valor en el ejeY
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary" type="submit" onclick="insertArrayTension()">Insertar</button>
+                    </form>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Grafica</h5>
+                  <div id="chartdiv" style="height: 450px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <footer>
+            <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title">Echo con ❤</h5>
+                  <p class="card-text">Licencia de Codigo libre</p>
+                  <a href="#" class="btn btn-primary">Ir a Codigo</a>
+                </div>
+            </div>
+        </footer>
+        </div>
+        <br/> 
+    </body>
+</html>
