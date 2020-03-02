@@ -7,7 +7,7 @@ import TreeMenu from './components/TreeMenu/index';
 import Datamenu from './components/data/index';
 import SidebarMenu from './components/sidebar/index';
 import SettingsChart from './components/settings/index';
-
+import TabsGradient from './components/visuals/Tabsmenu/index';
 //Creo estilo de menu para poder utilizar
 const useStyle = makeStyles(theme => ({
   marign:{
@@ -22,7 +22,9 @@ const useStyle = makeStyles(theme => ({
     top:"200px"
   },
   card:{
-    height:"calc(100vh - 90px)"
+    height:"calc(100vh - 90px)",
+    boxShadow:"none",
+    margin:0
   },
   textfield:{
     width:`calc(50% - 20px)`,
@@ -54,39 +56,41 @@ function App() {
 
   return (
     <div>
-     <AppBar style={{background:"linear-gradient(to right, #606c88, #3f4c6b)"}}>
+     <AppBar style={{
+            boxShadow:"none",
+            background:"linear-gradient(to top, #ee0979, #ff6a00)",
+            WebkitBackgroundClip:"text",
+            WebkitTextFillColor:"transparent"}}>
        <Toolbar>
           <Hidden smUp>
           <SidebarMenu 
           handleNewchart={(openDialog) => setDialog(openDialog)} 
           handleSelection={(selectionvalue) => setSelection(selectionvalue)}/>
           </Hidden>
-          <TimelineRounded 
+          <Typography 
+          variant="h4"
           style={{
-            color:"#FFF",
-            height:40,
-            width:40,
-            marginRight:10
-          }}/>
-          <Typography variant="h5">
+            background:"linear-gradient(to right, #ee0979, #ff6a00)",
+            WebkitBackgroundClip:"text",
+            WebkitTextFillColor:"transparent"
+          }}>
             <b>Tension</b> Charts
           </Typography>
           <div style={{flexGrow:1}}/>
           <Tooltip title="Ver codigo">
           <IconButton href="https://github.com/maldos23/tension_chart">
-          <GitHub style={{color:"#FFF"}}/>
+          <GitHub style={{color:"#ee0979"}}/>
           </IconButton>
           </Tooltip>
         </Toolbar>
      </AppBar>
      <div style={{height:'70px'}}/>
       <Card className={classes.card}>
-        <div>
-          <Grid container spacing={2}>
+          <Grid container spacing={0}>
             <Grid item xs={12} sm={3} lg={2}>
               <Hidden xsDown>
                 <CardContent>
-                <Fab 
+                <Fab
                 onClick={()=>setDialog(true)}
                 className={classes.fabButton} 
                 variant="extended">
@@ -126,7 +130,6 @@ function App() {
             {selection === 4 && <SettingsChart />}
             </Grid>
           </Grid>
-        </div>
       </Card>
       <Dialog
       onClose={() => setDialog(false)}
@@ -140,10 +143,12 @@ function App() {
         color="primary">
           Nueva grafica
         </DialogTitle>
+        <form>
         <DialogContent>
           <DialogContentText>
             Ingresa las opciones de creacion de grafica
           </DialogContentText>
+          
           <TextField
           fullWidth
           autoFocus
@@ -186,7 +191,6 @@ function App() {
               Tiempo Carga
             </MenuItem>
           </TextField>
-          
           <Switch>
             Mutiples ejes
           </Switch>
@@ -203,25 +207,28 @@ function App() {
             Aplicar
           </Button>
         </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
 }
 
 function CreateCharts(props){
+  const [selection, setSelection] = useState(0);
   const classes = useStyle();
 
   return(
     <div>
-      <Toolbar>
-        <div style={{borderRadius:"5px",background:"linear-gradient(to right, #ee0979, #ff6a00)", color:"#FFF"}}>
-        <Typography className={classes.marign} variant="h6">
-          Vista previa
-        </Typography>
-        </div>
-      </Toolbar>
+      <TabsGradient
+      title="Graficas"
+      items={[
+          {label:"Grafica"},
+          {label:"Info"},
+      ]}
+      getValue={(valueTabs) => setSelection(valueTabs)}
+      />
       <CardContent>
-      <Charts dataSeries={props.dataChart}/>
+      {selection === 0 && <Charts dataSeries={props.dataChart}/>}
       </CardContent>
     </div>
   )

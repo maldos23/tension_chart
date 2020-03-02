@@ -12,8 +12,16 @@ const theme = createMuiTheme({
             "roboto",
             "muli"
         ].join(",")
+    },
+    palette:{
+        primary:{
+            main:"#EE0979"
+        },
+        secondary:{
+            main:"#FF6A00"
+        }
     }
-})
+});
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>

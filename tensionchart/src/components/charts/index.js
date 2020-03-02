@@ -17,29 +17,29 @@ class Chart extends Component {
 
     componentDidMount() {
         let chart = am4core.create("chartdiv", am4charts.XYChart);
-    
+        
         // Add data
         chart.data = [
-            {
-                "index":"1",
-                "x": 269,
-                "y": 450,
-            }, {
-                "index":"2",
-                "x": 700,
-                "y": 758,
-            }];
+            {index:1, x:0.001,y:200},
+            {index:2, x:0.023,y:400},
+            {index:3, x:0.19,y:600},
+            {index:4, x:0.29,y:800}
+            ];
         
         // Creo ejes
         var xAxes = chart.xAxes.push(new am4charts.ValueAxis());
         xAxes.renderer.grid.template.location = 0;
         //xAxes.renderer.minGridDistance = 50;
+        xAxes.title.text="Deformacion";
         xAxes.cursorTooltipEnabled = true;
-
+        xAxes.tooltip.disabled=true;
+        xAxes.renderer.labels.template.fill=am4core.color("#EE0979");
         xAxes.adapter.add("dataContextValue",(value,target) => {
             return value
         })
-        chart.yAxes.push(new am4charts.ValueAxis());
+
+        var yAxes = chart.yAxes.push(new am4charts.ValueAxis());
+        yAxes.title.text="Carga";
         // Create series
         function createSeries(field, name) {
             var series = chart.series.push(new am4charts.LineSeries());
@@ -47,7 +47,9 @@ class Chart extends Component {
             series.dataFields.valueX = "x";
             series.dataFields.categoryX= "index";
             series.name = name;
-            series.tooltipText = "{valueX}";
+            series.tooltipText = "{valueY.value}";
+            series.fill = am4core.color("#EE0979");
+            series.stroke = am4core.color("#EE0979");
             series.strokeWidth = 2;
             // Set up tooltip
             chart.adapter.add("tooltipText", function(ev) {
@@ -69,7 +71,7 @@ class Chart extends Component {
             return series;
         }
         
-        createSeries("y", "Real - Material");
+        createSeries("y", "Carga - Deformacion");
         
         chart.legend = new am4charts.Legend();
         chart.cursor = new am4charts.XYCursor();
@@ -86,7 +88,7 @@ class Chart extends Component {
   
     render() {
       return (
-        <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+        <div id="chartdiv" style={{ width: "100%", height: "480px" }}></div>
       );
     }
 }

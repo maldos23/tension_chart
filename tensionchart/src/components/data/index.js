@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { Grid, Typography, makeStyles, Toolbar, ExpansionPanel, ExpansionPanelSummary, TextField } from '@material-ui/core';
-
+import { Grid, Typography, makeStyles, Toolbar, ExpansionPanel, ExpansionPanelSummary, TextField, ListItem, List, ListItemText, ListSubheader, Divider, Tabs, Tab } from '@material-ui/core';
+import TabsGradient from '../visuals/Tabsmenu/index';
 
 //Creo estilos de menu
 const useStyle = makeStyles(theme => ({
@@ -14,23 +14,38 @@ export default function Main_Component(props){
 
     return(
         <Fragment>
-            <Toolbar>
-            <div style={{borderRadius:"5px",background:"linear-gradient(to right, #ee0979, #ff6a00)", color:"#FFF"}}>
-                <Typography className={classes.margin} variant="h6">
-                    Datos
-                </Typography>
-            </div>
-            </Toolbar>
+            <TabsGradient
+            title="Datos"
+            items={[
+                {label:"Series"},
+                {label:"Historial"},
+            ]}
+            getValue={(valueTabs) => console.log(valueTabs)}
+            />
             <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
-                    margin="normal"
-                    variant="outlined"
-                    label="Eje x"/>
-                    <TextField
-                    margin="normal"
-                    variant="outlined"
-                    label="Eje Y"/>
+                <Grid item xs={3}>
+                    <List>
+                        <ListSubheader>
+                            Series en uso
+                        </ListSubheader>
+                        <ListItem button>
+                            <ListItemText
+                            primary="serie1"
+                            secondary="Acero A-36"/>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemText
+                            primary="serie1"
+                            secondary="Acero A-36"/>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemText
+                            primary="serie1"
+                            secondary="Acero A-36"/>
+                        </ListItem>
+                    </List>
+                </Grid>
+                <Grid item xs={9}>
                 </Grid>
             </Grid>
         </Fragment>
