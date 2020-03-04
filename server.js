@@ -3,8 +3,10 @@ const http = require('http');
 const path = require('path');
 const capitalFile = "/index.html";
 
+require("./database/connection.db");
+
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
+    require('dotenv').config();
 }
 
 let PORT = process.env.PORT;

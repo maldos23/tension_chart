@@ -20,7 +20,7 @@ export default function Main_Component(props){
             <IconButton 
             onClick={() => setOpen(true)}>
                 <MenuRounded style={{
-                    color:"#FFF",
+                    color:"#ee0979",
                     height:35,
                     width:35
                 }}/>

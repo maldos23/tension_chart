@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, Avatar, Tabs, Tab, Typography, CardContent, Card, makeStyles, Grid, Divider, TextField, Button, CardHeader, CardActions, Tooltip, Fab, Link, Hidden, Dialog, useTheme, useMediaQuery, DialogTitle, DialogContentText, DialogContent, DialogActions, MenuItem, Switch, FormControlLabel } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Avatar, Tabs, Tab, Typography, CardContent, Card, makeStyles, Grid, Divider, TextField, Button, CardHeader, CardActions, Tooltip, Fab, Link, Hidden, Dialog, useTheme, useMediaQuery, DialogTitle, DialogContentText, DialogContent, DialogActions, MenuItem, Switch, FormControlLabel, Fade } from '@material-ui/core';
 import { MenuOpenRounded, GitHub, TimelineRounded, SettingsApplicationsRounded, MoreRounded, AddRounded, Instagram, SupervisorAccount, SupervisorAccountRounded} from '@material-ui/icons';
 //Importo los componentes requeridos para modificar los componentes
 import Charts from './components/charts/index';
@@ -125,9 +125,16 @@ function App() {
               </Hidden>
             </Grid>
             <Grid item xs={12} sm={9} lg={10}>
-            {selection === 0 && <CreateCharts dataChart={dataSeries}/>}
-            {selection === 1 && <Datamenu/>}
-            {selection === 4 && <SettingsChart />}
+            <div>
+            <Fade 
+            in={true}>
+            <div>
+              {selection === 0 && <CreateCharts dataChart={dataSeries}/>}
+              {selection === 1 && <Datamenu/>}
+              {selection === 4 && <SettingsChart />}
+            </div>
+            </Fade>
+            </div>
             </Grid>
           </Grid>
       </Card>

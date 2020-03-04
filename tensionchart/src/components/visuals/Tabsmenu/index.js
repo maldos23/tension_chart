@@ -12,11 +12,12 @@ const useStyle = makeStyles(theme => ({
 function Main_Component(props){
     const classes = useStyle();
     const [selection,setSelection] = useState(0);
-    const { title, getValue, items, ...others } = props;
-
+    const { title, getValue, items } = props;
+    const GetValue = (vale) => getValue(vale);
     useEffect(() => {
-        getValue(selection);
+        GetValue(selection);
     },[selection]);
+
     return(
         <Fragment>
             <div style={{display:"flex"}}>
@@ -37,7 +38,8 @@ function Main_Component(props){
                 items.map((item, index) => {
                     
                     return(
-                    <Tab 
+                    <Tab
+                    key={index} 
                     onClick={() => setSelection(index)}
                     label={
                         typeof item.label === "string"?
@@ -54,8 +56,7 @@ function Main_Component(props){
 }
 
 Main_Component.propTypes = {
-    items: PropTypes.object.isRequired,
-    getValue: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired
 }
 
